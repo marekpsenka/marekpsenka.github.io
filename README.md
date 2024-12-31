@@ -9,5 +9,9 @@ npm install
 ```
 
 ```shell
+npm run copy_bs_js
+```
+
+```shell
 zola serve
 ```
