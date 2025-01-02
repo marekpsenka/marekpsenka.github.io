@@ -1,4 +1,32 @@
 @import "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap";
 $font-family-sans-serif: "Inter";
+$wheat: #F5DEB3;
+$dark-wheat: #b98118; // darken($wheat, 42%)
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+
+@mixin header-link {
+    font-size: $h3-font-size;
+    font-family: $font-family-monospace;
+    color: map-get($theme-colors-text, "secondary");
+}
+
+header {
+    a {
+        @include header-link;
+        text-decoration-line: none;
+    }
+
+    a:hover {
+        @include header-link;
+        text-decoration-line: underline;
+        text-decoration-color: $dark-wheat;
+    }
+
+    img {
+        width: $font-size-base;
+        height: $font-size-base;
+        filter: invert(55%) sepia(39%) saturate(5206%) hue-rotate(18deg) brightness(97%) contrast(81%);
+        // magic trick: https://codepen.io/sosuke/pen/Pjoqqp, https://stackoverflow.com/a/53336754/2648395
+    }
+}
