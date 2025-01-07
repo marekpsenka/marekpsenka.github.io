@@ -1,6 +1,9 @@
 +++
 title = "My second grain"
 date = 2019-11-28
+
+[extra]
+thumb = "zijemeit.svg"
 +++
 
 This is my second blog post.

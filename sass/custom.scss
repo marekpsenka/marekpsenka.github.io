@@ -2,6 +2,7 @@
 $font-family-sans-serif: "Inter";
 $wheat: #F5DEB3;
 $dark-wheat: #b98118; // darken($wheat, 42%)
+$primary: $dark-wheat;
 
 // Override `container-max-widths` map with the following map to remove the last two tiers.
 // This caps the width of the container at the `lg` breakpoint.

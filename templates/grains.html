@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  {{ section.title }}
-</h1>
-<ul>
-  <!-- If you are using pagination, section.pages will be empty.
-       You need to use the paginator object -->  
-  {% for page in section.pages %}
-  <li><a href="{{ page.permalink | safe }}">{{ page.title }}</a></li>
-  {% endfor %}
-</ul>
+
+<!-- If you are using pagination, section.pages will be empty.
+      You need to use the paginator object -->  
+{% for page in section.pages %}
+<div class="card m-3" style="width: 18rem;">
+  <img class="card-img-top p-4" src="{{ get_url(path=page.extra.thumb) }}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{ page.title }}</h5>
+    <p class="card-text"></p>
+    <a href="{{ page.permalink | safe }}" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+{% endfor %}
 {% endblock content %}
