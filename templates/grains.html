@@ -1,17 +1,18 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-<!-- If you are using pagination, section.pages will be empty.
-      You need to use the paginator object -->  
+<div class="row g-4">
 {% for page in section.pages %}
-<div class="card m-3" style="width: 18rem;">
-  <img class="card-img-top p-4" src="{{ get_url(path=page.extra.thumb) }}" alt="Card image cap">
-  <div class="card-body">
-    <h5 class="card-title">{{ page.title }}</h5>
-    <p class="card-text"></p>
-    <a href="{{ page.permalink | safe }}" class="btn btn-primary">Go somewhere</a>
+  <div class="col">
+    <div class="card border-primary" style="width: 18rem;">
+      <img class="card-img-top p-4" src="{{ get_url(path=page.extra.thumb) }}" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">{{ page.title }}</h5>
+        <p class="card-text"></p>
+        <a href="{{ page.permalink | safe }}" class="btn btn-primary">Go somewhere</a>
+      </div>
+    </div>
   </div>
-</div>
 {% endfor %}
+</div>
 {% endblock content %}
