@@ -1,12 +1,13 @@
 +++
-title = "My second grain"
+title = "Rust Moravia"
 date = 2019-11-28
 
 [extra]
-thumb = "zijemeit.svg"
+thumb = "img/sohaj-ferris.svg"
 +++
 
-This is my second blog post.
+I founded a Rust user group meeting in Olomouc, Zlín and other Moravian cities.
+<!-- more -->
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget nisi vitae sapien mattis pellentesque. Pellentesque ut rutrum mi. Nam eu enim ipsum. Cras tortor massa, venenatis eget elementum ac, venenatis ut nisl. Donec porttitor, ligula quis feugiat gravida, est elit porta est, id gravida nunc mi ac dolor. Integer eget egestas nisi, vitae commodo mauris. Phasellus quis nunc eget lorem porta tempus. Sed et turpis diam. Aliquam sed elit lectus.
 

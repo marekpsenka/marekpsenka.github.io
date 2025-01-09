@@ -1,12 +1,14 @@
 +++
-title = "My first grain"
-date = 2019-11-27
+title = "Práce s chybami v Rustu"
+date = 2024-11-13
 
 [extra]
-thumb = "zijemeit.svg"
+thumb = "img/zijemeit.svg"
 +++
 
-This is my first blog post.
+Přednášel jsem o práci s chybami v Rustu na konferenci Žijeme IT na FIT VUT.
+
+<!-- more -->
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget nisi vitae sapien mattis pellentesque. Pellentesque ut rutrum mi. Nam eu enim ipsum. Cras tortor massa, venenatis eget elementum ac, venenatis ut nisl. Donec porttitor, ligula quis feugiat gravida, est elit porta est, id gravida nunc mi ac dolor. Integer eget egestas nisi, vitae commodo mauris. Phasellus quis nunc eget lorem porta tempus. Sed et turpis diam. Aliquam sed elit lectus.
 
