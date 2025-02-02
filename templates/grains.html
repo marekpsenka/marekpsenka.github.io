@@ -1,17 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row g-4">
+<div class="d-flex flex-row flex-wrap">
 {% for page in section.pages %}
-  <div class="col">
-    <div class="card text-center">
-      <div class="card-body">
-        <a href="{{ page.permalink | safe }}"><h5 class="card-title">{{ page.title }}</h5></a>
-        <div class="card-text">
-          {{ page.summary | safe }}
-        </div>
-        <img class="card-img-bottom p-4" src="{{ get_url(path=page.extra.thumb) }}" alt="Card image cap">
+  <div class="card text-center m-2" style="width: 18rem;">
+    <div class="card-body">
+      <a href="{{ page.permalink | safe }}"><h5 class="card-title">{{ page.title }}</h5></a>
+      <div class="card-text">
+        {{ page.summary | safe }}
       </div>
+      <img class="card-img-bottom p-4" src="{{ get_url(path=page.extra.thumb) }}" alt="Card image cap">
     </div>
   </div>
 {% endfor %}
