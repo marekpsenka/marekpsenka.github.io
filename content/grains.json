@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Práce s chybami v Rustu",
+    "thumb": "img/zijemeit.svg",
+    "desc": "Přednášel jsem o práci s chybami v Rustu na konferenci Žijeme IT na FIT VUT.",
+    "link": "https://youtu.be/lpJ9c3l5adg"
+  },
+  {
+    "title": "Rust Moravia",
+    "thumb": "img/sohaj-ferris.svg",
+    "desc": "I founded a Rust user group meeting in Olomouc, Zlín and other Moravian cities.",
+    "link": "https://rust-moravia.cz/"
+  }
+]
