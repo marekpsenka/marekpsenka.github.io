@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block head %}
+{{ macros::title_and_description(title="posts", description="overview of my blog") }}
+{% endblock %}
+
 {% block content %}
 <h1 class="title">
   {{ section.title }}

@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
+
+{% block head %}
+{% if page.summary %}
+  {% set desc = page.summary | markdown(inline=true) | safe %}
+{% endif %}
+{{ macros::title_and_description(title=page.title, description=desc | default(value="")) }}
+{% endblock %}
+
 {% block content %}
 <h1 class="title">
   {{ page.title }}
