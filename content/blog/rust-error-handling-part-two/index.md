@@ -1,5 +1,5 @@
 +++
-title = "Error Handling in Rust"
+title = "Error Handling in Rust, Part 2: Composability"
 date = 2019-11-27
 +++
 
