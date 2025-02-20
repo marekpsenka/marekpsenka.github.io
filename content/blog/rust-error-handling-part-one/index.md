@@ -64,9 +64,10 @@ for the `make_espresso` function:
 
 Notice how the returned value must be checked to determine if it's the desired type or an error.
 
-## Filozofie
+## Philosophy
 
-Myšlenka vyhradit prostor pro chybové informace v návratové hodnotě není nová
+The idea of making space for error information in the return value of a function is not new.
+Consider this C snippet:
 
 ```C
 int main(void)
@@ -80,11 +81,23 @@ int main(void)
 }
 ```
 
+Given that a file called `non_existent` does not exist in the working directory, executing this
+program produces the following output:
+
 ```txt
 fopen() failed: No such file or directory
 ```
 
-## Rust nám to usnadňuje
+The literal value `NULL` is reserved in the type `FILE *` by this function to indicate that it
+was not successful. The value representing errors coexists with all possible valid return values
+within the same type. Note also how the `perror` function is used to print the error extending
+the message in its argument with more information about the cause.
+
+## Rust's unique take
+
+Rust makes the implementation of the above idea very easy and makes the coexistence of values
+for error signalling with desired outputs explicit in the declaration of the standard `Result`
+type:
 
 ```rust
 pub enum Result<T, E> {
@@ -93,6 +106,10 @@ pub enum Result<T, E> {
 }
 ```
 
+Note that the type is generic and that any two types can be passed as the type parameters `T` and `E`.
+In the language, it's standard practice to return values of this type from functions that may fail. Here is
+how a snippet of code analogous to the one seen in the previous section could look like in Rust:
+
 ```rust
 fn open_nonexistent_file() {
     match std::fs::File::open("non_existent") {
@@ -101,90 +118,63 @@ fn open_nonexistent_file() {
     }
 }
 ```
+
+The output is also almost the same, but note how the information about the cause is obtained
+by directly printing the value carried by the error variant of the `Result`:
 
 ```txt
 open() failed: The system cannot find the file specified. (os error 2)
 ```
 
-## Porovnej
+## The Trouble with Exceptions (in C#)
 
-```C
-int main(void) {
-    FILE *f = fopen("non_existent", "r");
-    if (f == NULL) {
-        perror("fopen() failed");
-    } else {
-        fclose(f);
-    }
-}
-```
-
-```rust
-fn open_nonexistent_file() {
-    match std::fs::File::open("non_existent") {
-        Ok(file) => drop(file),
-        Err(err) => println!("open() failed: {}", err),
-    }
-}
-```
-
-## Jiná strategie - výjimky v C\# - nejsou vidět
+Here is how a function for opening files is declared in C#:
 
 ```C#
 public static System.IO.FileStream Open (string path, System.IO.FileMode mode);
 ```
 
-Kde se dozvím jak vypadá chyba? __V dokumentaci__:
-> ArgumentNullException
-> PathTooLongException
-> (...)
+How can I see if and how this function might fail? I have to read the documentation:
 
-Rust je explicitní. Dozvím se to __v kódu__:
+```txt
+(...)
+
+ArgumentNullException
+path is null.
+
+PathTooLongException
+The specified path, file name, or both exceed the system-defined maximum length.
+
+(...)
+```
+
+Rust on the other hand is explicit. I can see the possiblity of failure immediately
+from how the function is declared in the code:
 
 ```rust
 pub fn open<P: AsRef<Path>>(path: P) -> std::Result<T, std::io::Error>;
 ```
 
-## Vyjímky střílí
-
-```C#
-void OpenNonexistentFile() {
-    File.Open("non_existent", FileMode.Open);
-}
-
-OpenNonexistentFile();
-
-DoSomethingElse();
-```
+Another problematic aspect of exceptions is their propagation in the call stack. It has not
+only the potential to alter control flow, but also to terminate the whole program if not
+caught anywhere. I am sure most programmers who dealt with exceptions saw outputs similar to the
+following:
 
 ```txt
-C:\code\rust-error-handling\_examples_cs>dotnet run
+>dotnet run
 Unhandled exception. System.IO.FileNotFoundException: Could not find file 'non_existent'.
 (...)
 ```
 
-## Porovnej
+For something not visible in the code, it seems that there is a lot of harmful potential in
+exception-based error mechanisms.
 
-```C#
-void OpenNonexistentFile() {
-    try 
-    {
-        File.Open("non_existent", FileMode.Open);
-    }
-    catch (Exception e) {
-        Console.WriteLine($"{e}");
-    }
-}
-```
-
-```rust
-fn open_nonexistent_file() {
-    match std::fs::File::open("non_existent") {
-        Ok(file) => drop(file),
-        Err(err) => println!("open() failed: {}", err),
-    }
-}
-```
+Furthermore, in languages like C#, error handling feels
+_opt in_. You need to write a `try`-`catch` block to start handling errors. In Rust however,
+the compiler [warns about unused result types](https://doc.rust-lang.org/std/result/#results-must-be-used)
+making error handling an opt-out pattern (provided you care about warnings). This subtle difference
+results in safer code in my opinion. Although it is possible to willingly sidestep these
+safety rails, it must be a willing action of the programmer.
 
 ## Shrnutí
 
