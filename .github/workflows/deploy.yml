@@ -34,7 +34,7 @@ jobs:
           tar -xvf zola.tar.gz
       - name: Install npm
         run: |
-          apt install npm
+          sudo apt install npm
       - name: Install npm packages
         run: npm install
       - name: Copy Boostrap JS
