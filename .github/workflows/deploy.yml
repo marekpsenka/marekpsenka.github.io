@@ -22,7 +22,7 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: node-latest
+    runs-on: node
     steps:
       - name: Checkout
         uses: actions/checkout@v4
