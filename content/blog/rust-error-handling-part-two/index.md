@@ -1,6 +1,7 @@
 +++
 title = "Error Handling in Rust, Part 2: Composability"
-date = 2019-11-27
+date = 2025-02-24
+draft = true
 +++
 
 ```rust

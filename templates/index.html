@@ -2,7 +2,10 @@
 
 {% block content %}
 
-<p>Hello hello hello</p>
+<p>
+  Hello, my name is Marek and this is my homepage. I am a father, a citizen of the world and
+  a technical lead in software development with background in physics and mathematics.
+</p>
 
 <p class="text-body-secondary text-decoration-none lh-1 small">
   Powered by
@@ -13,6 +16,7 @@
     <i class="bi-github"></i>
   </a>
   and <a href="https://getzola.org" class="text-body-secondary text-decoration-none">Zola</a>.
+  {{ now() | date(format="%Y") }}
 </p>
 
 {% endblock content %}

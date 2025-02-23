@@ -15,6 +15,10 @@ $container-max-widths: (
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+html {
+  scrollbar-gutter: stable;
+}
+
 img {
   max-width: 100%;
   height: auto;

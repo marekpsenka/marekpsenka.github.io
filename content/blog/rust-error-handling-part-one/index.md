@@ -1,6 +1,7 @@
 +++
-title = "Error Handling in Rust, Part 1: Basics"
-date = 2019-11-27
+title = "Error Handling in Rust, Part 1: Basic Idea"
+date = 2025-02-23
+description = "First part of a series focused on error handling in Rust. In this installment I go over the basics and mainly discuss the philoshopy closing off with comparison to exceptions in C#."
 +++
 
 The approach Rust takes to error handling was one of the features that drew me in when I first
@@ -9,6 +10,10 @@ used exceptions and I almost couldn't picture a different strategy. I was puzzle
 I hadn't seen these methods before. It only later when it struck me that the ideas pushed
 by Rust were not completely new, but improved on techniques that had been around for ages in
 some languages.
+
+This post is the first part of a series focused on error handling in Rust. In this installment
+I go over the basics and mainly discuss the philoshopy closing off with comparison to exceptions
+in C#.
 
 ## Simple Example
 
@@ -63,6 +68,13 @@ for the `make_espresso` function:
 ```
 
 Notice how the returned value must be checked to determine if it's the desired type or an error.
+The following illustration simplifies the view of how errors are handled in Rust through an
+analogy:
+
+![Basic diagram](./basic_diagram.jpg)
+
+`Result` is like a box returned to the caller. The box may contain either the desired return value
+or an error value. We must inspect the box to find out which one we got.
 
 ## Philosophy
 
@@ -134,7 +146,8 @@ Here is how a function for opening files is declared in C#:
 public static System.IO.FileStream Open (string path, System.IO.FileMode mode);
 ```
 
-How can I see if and how this function might fail? I have to read the documentation:
+How can I see if and how this function might fail? I have to read
+[the documentation](https://learn.microsoft.com/en-us/dotnet/api/system.io.file.open?view=net-9.0#system-io-file-open(system-string-system-io-filemode)):
 
 ```txt
 (...)
@@ -176,10 +189,15 @@ making error handling an opt-out pattern (provided you care about warnings). Thi
 results in safer code in my opinion. Although it is possible to willingly sidestep these
 safety rails, it must be a willing action of the programmer.
 
-## Shrnutí
+## Summary
 
-- Rust nám na zákaznických projektech pomáhá psát spolehlivý kód
-- Myšlenka vyhradit prostor pro chybové informace v návratové hodnotě není nová
-- Rust nám to usnadňuje standardním typem `Result<T, E>`
-- Příklad alternativní strategie jsou výjimky.
-- Nejsou ale vidět a střílí - nutná bdělost
+- Using `Result<T, E>` as the return type of a fallible function is standard practice in Rust.
+- `Result` is like a box that may or may not contain the desired resultt.
+- The idea of making space for error information in the return value of a function is not new.
+- Rust has greatly improved on the idea.
+- We compared errors to C# exceptions which:
+  - are not visible in the code and feel implicit
+  - exception handling seems _opt-in_ even though an uncaught exception can crash the whole program
+- Errors
+  - are visible and explicit
+  - Handling errors is opt-out, the programmer must willingly disregard errors

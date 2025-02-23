@@ -8,6 +8,10 @@
 
 {% set grains = load_data(path="content/grains.json") %}
 
+<h1 class="title">
+  {{ page.title }}
+</h1>
+
 <div class="d-flex flex-row flex-wrap">
 {% for grain in grains %}
   <div class="card text-center m-2" style="width: 18rem;">
