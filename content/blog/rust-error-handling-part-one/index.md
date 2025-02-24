@@ -7,7 +7,7 @@ description = "First part of a series focused on error handling in Rust. In this
 The approach Rust takes to error handling was one of the features that drew me in when I first
 came into contact with the language. Up until then, I worked in C++ and C# and codebases that
 used exceptions and I almost couldn't picture a different strategy. I was puzzled
-I hadn't seen these methods before. It only later when it struck me that the ideas pushed
+I hadn't seen these methods before. It only later struck me that the ideas pushed
 by Rust were not completely new, but improved on techniques that had been around for ages in
 some languages.
 
