@@ -2,5 +2,13 @@
   "dependencies": {
     "bootstrap": "^5.3.3"
   },
-  "scripts": {"copy_bs_js": "xcopy .\\node_modules\\bootstrap\\dist\\js\\bootstrap.min.js .\\static\\script"}
+  "scripts": {
+    "copy_bs_js": "xcopy .\\node_modules\\bootstrap\\dist\\js\\bootstrap.min.js .\\static\\script"
+  },
+  "devDependencies": {
+    "@html-eslint/eslint-plugin": "^0.35.0",
+    "@html-eslint/parser": "^0.35.0",
+    "eslint": "^9.21.0"
+  },
+  "type": "module"
 }

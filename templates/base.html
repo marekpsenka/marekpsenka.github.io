@@ -1,35 +1,42 @@
 {% import "macros.html" as macros %}
 
+<!-- eslint-disable @html-eslint/require-title -->
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:url" content="{{ current_url }}">
+    <meta property="og:image" content="{{ get_url(path='img/wheat.svg') }}">
+    <meta property="og:site_name" content="pšenka kvete">
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:url" content="{{ current_url }}" />
-  <meta property="og:image" content="{{ get_url(path='img/wheat.svg') }}" />
-  <meta property="og:site_name" content="pšenka kvete" />
+    {% block head %}
+    <meta property="og:type" content="website">
+    {{ macros::title_and_description(title="", description="personal page") }}
+    {% endblock %}
 
-  {% block head %}
-  <meta property="og:type" content="website" />
-  {{ macros::title_and_description(title="", description="personal page") }}
-  {% endblock %}
+    <link
+      rel="icon" 
+      href="{{ get_url(path='img/wheat.svg') }}" 
+      type="image/x-icon"
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+      rel="preconnect" 
+      href="https://fonts.gstatic.com"
+      crossorigin
+    >
+    <link rel="stylesheet" href="{{ get_url(path='custom.css') }}">
+  </head>
 
-  <link rel="icon" href="{{ get_url(path='img/wheat.svg') }}" type="image/x-icon"/>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="{{ get_url(path='custom.css') }}"/>
-</head>
-
-<body>
-  <section class="section">
-    <div class="container p-4">
-      {% include "header.html" %}
-      {% block content %} {% endblock %}
-    </div>
-  </section>
-</body>
-
-<script type="text/javascript" src="{{ get_url(path='script/bootstrap.min.js') }}"></script>
-<script async data-id="101478869" src="//static.getclicky.com/js"></script>
+  <body>
+    <section class="section">
+      <div class="container p-4">
+        {% include "header.html" %}
+        {% block content %} {% endblock %}
+      </div>
+    </section>
+    <script type="text/javascript" src="{{ get_url(path='script/bootstrap.min.js') }}"></script>
+    <script async data-id="101478869" src="//static.getclicky.com/js"></script>
+  </body>
 </html>

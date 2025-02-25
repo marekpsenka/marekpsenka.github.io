@@ -13,16 +13,22 @@
 </h1>
 
 <div class="d-flex flex-row flex-wrap">
-{% for grain in grains %}
+  {% for grain in grains %}
   <div class="card text-center m-2" style="width: 18rem;">
     <div class="card-body">
-      <a href="{{ grain.link | safe }}"><h5 class="card-title">{{ grain.title }}</h5></a>
+      <a href="{{ grain.link | safe }}">
+        <h5 class="card-title">{{ grain.title }}</h5>
+      </a>
       <div class="card-text">
         {{ grain.desc | safe }}
       </div>
-      <img class="card-img-bottom p-4" src="{{ get_url(path=grain.thumb) }}" alt="Card image cap">
+      <img
+        class="card-img-bottom p-4"
+        src="{{ get_url(path=grain.thumb) }}"
+        alt="Card image cap"
+      >
     </div>
   </div>
-{% endfor %}
+  {% endfor %}
 </div>
 {% endblock content %}

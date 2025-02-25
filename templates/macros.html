@@ -1,11 +1,11 @@
 {% macro title_and_description(title, description) %}
-  {% if title %}
-    {% set title = title ~ " | pšenka kvete" %}
-  {% else %}
-    {% set title = "pšenka kvete" %}
-  {% endif %}
-  <meta name="description" content="{{ description }}">
-  <meta property="og:title" content="{{ title }}" />
-  <meta property="og:description" content="{{ description }}" />
-  <title>{{ title }}</title>
+{% if title %}
+{% set title = title ~ " | pšenka kvete" %}
+{% else %}
+{% set title = "pšenka kvete" %}
+{% endif %}
+<meta name="description" content="{{ description }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<title>{{ title }}</title>
 {% endmacro title_and_description %}

@@ -1,7 +1,15 @@
 # blog
 
 ```shell
-choco install nodist
+choco install nvm
+```
+
+```shell
+nvm install latest
+```
+
+```shell
+nvm use %latest%
 ```
 
 ```shell
