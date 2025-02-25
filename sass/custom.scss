@@ -32,6 +32,10 @@ header {
     text-decoration-line: none;
   }
 
+  a.root-link {
+    font-size: $h2-font-size;
+  }
+
   a:hover {
     text-decoration-line: underline;
     text-decoration-color: $dark-wheat;
@@ -46,6 +50,6 @@ header {
 
   i {
     color: $dark-wheat;
-    font-size: 1.2 * $font-size-base;
+    font-size: $h4-font-size;
   }
 }

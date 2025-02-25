@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
-
 {% block head %}
+<meta property="og:type" content="article" />
+{% set iso_8601_date = page.date | date(format="%+") %}
+<meta property="article:published_time" content="{{ iso_8601_date }}" />
 {{ macros::title_and_description(title=page.title, description=page.description | default(value="")) }}
 {% endblock %}
 

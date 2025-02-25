@@ -6,11 +6,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta property="og:type" content="website" />
   <meta property="og:url" content="{{ current_url }}" />
   <meta property="og:image" content="{{ get_url(path='img/wheat.svg') }}" />
+  <meta property="og:site_name" content="pšenka kvete" />
 
   {% block head %}
+  <meta property="og:type" content="website" />
   {{ macros::title_and_description(title="", description="personal page") }}
   {% endblock %}
 
