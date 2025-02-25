@@ -48,6 +48,11 @@ header {
     // magic trick: https://codepen.io/sosuke/pen/Pjoqqp, https://stackoverflow.com/a/53336754/2648395
   }
 
+  img.root-img {
+    width: $h4-font-size;
+    height: $h4-font-size;
+  }
+
   i {
     color: $dark-wheat;
     font-size: $h4-font-size;
