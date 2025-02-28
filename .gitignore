@@ -1,3 +1,4 @@
 public/
 node_modules/
 static/script/bootstrap.min.js
+static/syntax-theme*
