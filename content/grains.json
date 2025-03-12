@@ -10,5 +10,11 @@
     "thumb": "img/sohaj-ferris.svg",
     "desc": "I founded a Rust user group meeting in Olomouc, Zlín and other Moravian cities.",
     "link": "https://rust-moravia.cz/"
+  },
+  {
+    "title": "Software Development in the AI Era",
+    "thumb": "img/man-and-machine.jpg",
+    "desc": "I wrote an article for our company blog with some data offering a local perspective on the use of AI in software development.",
+    "link": "https://www.edhouse.eu/en/blog/detail/software-development-in-the-ai-era/"
   }
 ]
