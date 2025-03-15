@@ -39,6 +39,8 @@ jobs:
         run: npm install --omit=dev
       - name: Copy Boostrap JS
         run: cp ./node_modules/bootstrap/dist/js/bootstrap.min.js ./static/script
+      - name: Copy Isotope JS
+        run: cp ./node_modules/isotope-layout/dist/isotope.pkgd.min.js ./static/script
       - name: Build website
         run: ./zola build
       - name: Upload artifact

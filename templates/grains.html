@@ -6,29 +6,47 @@
 
 {% block content %}
 
+<script type="text/javascript" src="{{ get_url(path='script/isotope.pkgd.min.js') }}"></script>
+
 {% set grains = load_data(path="content/grains.json") %}
 
 <h1 class="title">
   {{ page.title }}
 </h1>
 
-<div class="d-flex flex-row flex-wrap">
-  {% for grain in grains %}
-  <div class="card text-center m-2" style="width: 18rem;">
-    <div class="card-body">
-      <a href="{{ grain.link | safe }}">
-        <h5 class="card-title">{{ grain.title }}</h5>
-      </a>
-      <div class="card-text">
-        {{ grain.desc | safe }}
+<div class="container-fluid">
+  <div class="grid">
+    <div class="grid-sizer col-xs-12 col-sm-6 col-md-4"></div>
+    {% for grain in grains %}
+    <div class="grid-item col-xs-12 col-sm-6 col-md-4 p-2">
+      <div class="card text-center">
+        <div class="card-body">
+          <a href="{{ grain.link | safe }}">
+            <h5 class="card-title">{{ grain.title }}</h5>
+          </a>
+          <div class="card-text">
+            {{ grain.desc | safe }}
+          </div>
+          <img
+            class="card-img-bottom p-4"
+            src="{{ get_url(path=grain.thumb) }}"
+            alt="Card image cap"
+          >
+        </div>
       </div>
-      <img
-        class="card-img-bottom p-4"
-        src="{{ get_url(path=grain.thumb) }}"
-        alt="Card image cap"
-      >
     </div>
+    {% endfor %}
   </div>
-  {% endfor %}
 </div>
+
+<script>
+  var elem = document.querySelector('.grid');
+  var iso = new Isotope( elem, {
+    // options
+    itemSelector: '.grid-item',
+    masonry: {
+      columnWidth: '.grid-sizer',
+    }
+  });
+</script>
 {% endblock content %}

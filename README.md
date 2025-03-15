@@ -17,7 +17,7 @@ npm install
 ```
 
 ```shell
-npm run copy_bs_js
+npm run copy_js_deps
 ```
 
 ```shell

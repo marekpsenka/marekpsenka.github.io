@@ -1,9 +1,12 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "bootstrap": "^5.3.3",
+    "isotope-layout": "^3.0.6"
   },
   "scripts": {
-    "copy_bs_js": "xcopy .\\node_modules\\bootstrap\\dist\\js\\bootstrap.min.js .\\static\\script"
+    "copy_bs_js": "xcopy .\\node_modules\\bootstrap\\dist\\js\\bootstrap.min.js .\\static\\script",
+    "copy_iso_js": "xcopy .\\node_modules\\isotope-layout\\dist\\isotope.pkgd.min.js .\\static\\script",
+    "copy_js_deps": "npm run copy_bs_js && npm run copy_iso_js"
   },
   "devDependencies": {
     "@html-eslint/eslint-plugin": "^0.35.0",
