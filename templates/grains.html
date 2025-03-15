@@ -7,6 +7,7 @@
 {% block content %}
 
 <script type="text/javascript" src="{{ get_url(path='script/isotope.pkgd.min.js') }}"></script>
+<script type="text/javascript" src="{{ get_url(path='script/imagesloaded.pkgd.min.js') }}"></script>
 
 {% set grains = load_data(path="content/grains.json") %}
 
@@ -41,12 +42,15 @@
 
 <script>
   var elem = document.querySelector('.grid');
-  var iso = new Isotope( elem, {
-    // options
-    itemSelector: '.grid-item',
-    masonry: {
-      columnWidth: '.grid-sizer',
-    }
+  var iso;
+  imagesLoaded(elem, function() {
+    iso = new Isotope( elem, {
+      // options
+      itemSelector: '.grid-item',
+      masonry: {
+        columnWidth: '.grid-sizer',
+      }
+    });
   });
 </script>
 {% endblock content %}
