@@ -42,15 +42,16 @@
 
 <script>
   var elem = document.querySelector('.grid');
-  var iso;
-  imagesLoaded(elem, function() {
-    iso = new Isotope( elem, {
+  var iso = new Isotope( elem, {
       // options
       itemSelector: '.grid-item',
       masonry: {
         columnWidth: '.grid-sizer',
       }
-    });
+    }); 
+
+  imagesLoaded(elem, function() {
+    iso.layout();
   });
 </script>
 {% endblock content %}
