@@ -8,10 +8,18 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="title">
-  {{ page.title }}
-</h1>
-<p class="subtitle"><strong>{{ page.date }}</strong></p>
+<header>
+  <h1>
+    {{ page.title }}
+  </h1>
+  <p class="lead">
+    {% if page.extra.subtitle %}
+    {{ page.extra.subtitle }}, 
+    {% endif %}
+    <time>{{ page.date }}</time>
+  </p>
+</header>
+
 {{ page.content | safe }}
 
 <footer class="mx-auto align-items-center my-4 py-4 border-top">

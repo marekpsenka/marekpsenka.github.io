@@ -24,9 +24,13 @@ html {
   scrollbar-gutter: stable;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
+section {
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+  }
 }
 
 // Modify basic syntax class in dark sheet to unify background and foreground color
