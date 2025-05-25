@@ -1,8 +1,15 @@
 +++
 title = "Error Handling in Rust, Part 2: Composability"
-date = 2025-02-24
+date = 2025-05-30
 draft = true
 +++
+
+This article presents a second part of my series on Rust error handling that I started
+in a [post](@/blog/rust-error-handling-part-one/index.md) three months ago. Now we'll build on that
+foundation to explore composability – how to effectively combine and manage errors in more complex
+Rust applications
+
+Let's recall the simple example of making espresso in a coffee machine from the first part:
 
 ```rust
 pub struct CoffeeMachine {
@@ -23,99 +30,15 @@ impl CoffeeMachine {
 }
 ```
 
-```rust
-    #[test]
-    fn error_returned_when_making_espresso_without_beans() {
-        let machine = CoffeeMachine {
-            water_tank_volume: 300.0,
-            available_coffee_beans: 2.0,
-        };
-
-        let result = machine.make_espresso();
-        assert!(result.is_err());
-        assert_eq!(result, Err("Not enough coffee beans".to_string()));
-    }
-
-    #[test]
-    fn espresso_is_made_with_water_and_beans() {
-        let machine = CoffeeMachine {
-            water_tank_volume: 300.0,
-            available_coffee_beans: 7.0,
-        };
-
-        let result = machine.make_espresso();
-        assert!(result.is_ok());
-    }
-```
-
-![Basic diagram](./basic_diagram.jpg)
-
-## Philosophy
-
-The idea of making space for error information in function return value is not new
-
-```C
-int main(void)
-{
-    FILE *f = fopen("non_existent", "r");
-    if (f == NULL) {
-        perror("fopen() failed");
-    } else {
-        fclose(f);
-    }
-}
-```
-
-```txt
-fopen() failed: No such file or directory
-```
-
-## Rust makes it really easy
-
-```rust
-pub enum Result<T, E> {
-    Ok(T),
-    Err(E),
-}
-```
-
-```rust
-fn open_nonexistent_file() {
-    match std::fs::File::open("non_existent") {
-        Ok(file) => drop(file),
-        Err(err) => println!("open() failed: {}", err),
-    }
-}
-```
-
-```txt
-open() failed: The system cannot find the file specified. (os error 2)
-```
-
-## Side-by-side
-
-```C
-int main(void)
-{
-    FILE *f = fopen("non_existent", "r");
-    if (f == NULL) {
-        perror("fopen() failed");
-    } else {
-        fclose(f);
-    }
-}
-```
-
-```rust
-fn open_nonexistent_file() {
-    match std::fs::File::open("non_existent") {
-        Ok(file) => drop(file),
-        Err(err) => println!("open() failed: {}", err),
-    }
-}
-```
-
 ## Composing to make breakfast
+
+Composition is a fundamental tool in programming and allows us to solve huge problems by breaking
+them up into small puzzles that can be cracked individually. It is hard for any intelligence -
+human or artificial - to reason about a complex system by observing all its moving parts. It helps
+a great deal to form abstractions and build the solution layer by layer: from the small cogs to
+movements and on to the whole clockwork. To show how this abstract framework relates to error
+handling in Rust, let's consider our coffee machine a part of a larger system designed
+to make breakfast:
 
 ```rust
 pub struct Breakfast {
