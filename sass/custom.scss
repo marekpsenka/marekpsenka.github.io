@@ -31,6 +31,25 @@ section {
     display: block;
     margin: auto;
   }
+
+  blockquote {
+    @include color-mode(light) {
+      color: $secondary-text-emphasis;
+      border-left: 3px solid $secondary;
+    }
+
+    @include color-mode(dark) {
+      color: $secondary-text-emphasis-dark;
+      border-left: 3px solid $secondary;
+    }
+
+    margin: 1.5em 10px;
+    padding: 0.5em 10px;
+
+    p {
+      display: inline-block;
+    }
+  }
 }
 
 // Modify basic syntax class in dark sheet to unify background and foreground color

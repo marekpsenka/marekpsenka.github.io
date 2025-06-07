@@ -30,13 +30,13 @@ impl CoffeeMachine {
 }
 ```
 
-## Composing to make breakfast
+## Composing to Make Breakfast
 
 Composition is a fundamental tool in programming and allows us to solve huge problems by breaking
 them up into small puzzles that can be cracked individually. It is hard for any intelligence -
 human or artificial - to reason about a complex system by observing all its moving parts. It helps
 a great deal to form abstractions and build the solution layer by layer: from the small cogs to
-movements and on to the whole clockwork. To show how this abstract framework relates to error
+movements and on to the whole clockwork. To show how this abstract framework can be applied to error
 handling in Rust, let's consider our coffee machine a part of a larger system designed
 to make breakfast:
 
@@ -60,11 +60,21 @@ pub fn make_breakfast(coffee_machine: CoffeeMachine) -> Result<Breakfast, String
 }
 ```
 
+Here the task of preparing breakfast is explicitly broken down into parts. Just as we want
+to compose the whole breakfast out of toast and espresso, we want to compose
+the error reported from the `make_breakfast` function from information provided by any of the inner
+functions representing individual steps. To do this, we match on the return value of `make_espresso`
+and when get a string from the error variant, we form a new string stating what went wrong with
+the inner error string appended. This is illustrated by the following diagram
+
 ![Composition diagram](./composition.jpg)
 
-## Composability is useful
+This appoach allows us to propagate information about causes which is useful if it affects how the
+error is handled for example.
 
-Is `String` a desirable error type? It is composable but DIY:
+## Building Composable Error Types
+
+In the above example we used `String` as the error type and composed it manually like this:
 
 ```rust
         Err(coffee_machine_err_str) => Err(format!(
@@ -73,7 +83,10 @@ Is `String` a desirable error type? It is composable but DIY:
         )),
 ```
 
-What about the standard library?
+Now this would get very tedious in a real world codebase. We only used it to demonstrate the concept
+and will now look at better alternatives. Let's peek inside the standard library. The first thing
+we see is the following [`std::error::Error`](https://doc.rust-lang.org/std/error/trait.Error.html)
+trait declaration (I ommited the deprecated methods):
 
 ```rust
 pub trait Error: Debug + Display {
@@ -82,13 +95,22 @@ pub trait Error: Debug + Display {
 }
 ```
 
-## Building composable error types
+The standard library says that this trait defines basic expectations for error values. They
+must describe themselves through `Debug` and `Display` traits and may provide cause information
+through `Error::source()`. Here is a quote
+
+> Error::source() is generally used when errors cross “abstraction boundaries”. If one module must
+> report an error that is caused by an error from a lower-level module, it can allow accessing
+> that error via Error::source(). This makes it possible for the high-level module to provide its
+> own errors while also revealing some of the implementation for debugging.
 
 1. Implement `std::error:Error` trait yourself
 2. Adopt a general-purpose error type from a crate like `anyhow`
 3. Use a crate like `thiserror` to auto-implement `std::error:Error`
 
 There is no _right strategy_, you should pick what suits your code
+
+## Fanning out with `thiserror`
 
 ```rust
 use thiserror::Error;
@@ -158,6 +180,8 @@ pub fn make_breakfast(coffee_machine: CoffeeMachine) -> Result<Breakfast, MakeBr
 ```txt
 Unable to make espresso, Not enough coffee beans
 ```
+
+## Folding in with `anyhow`
 
 ```rust
 use anyhow::{anyhow, Context, Result};
