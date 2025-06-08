@@ -105,7 +105,7 @@ was not successful. The value representing errors coexists with all possible val
 within the same type. Note also how the `perror` function is used to print the error extending
 the message in its argument with more information about the cause.
 
-## Rust's unique take
+## Rust's Unique Take
 
 Rust makes the implementation of the above idea very easy and makes the coexistence of values
 for error signalling with desired outputs explicit in the declaration of the standard `Result`
