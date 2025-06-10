@@ -8,31 +8,35 @@
 {% endblock %}
 
 {% block content %}
-<header>
-  <h1>
-    {{ page.title }}
-  </h1>
-  <p class="lead">
-    {% if page.extra.subtitle %}
-    {{ page.extra.subtitle }}, 
-    {% endif %}
-    <time>{{ page.date }}</time>
-  </p>
-</header>
+<article>
+  <header>
+    <h1>
+      {{ page.title }}
+    </h1>
+    <p class="lead">
+      {% if page.extra.subtitle %}
+      {{ page.extra.subtitle }}, 
+      {% endif %}
+      <time>{{ page.date }}</time>
+    </p>
+  </header>
 
-{{ page.content | safe }}
+  <main>
+    {{ page.content | safe }}
+  </main>
 
-<footer class="mx-auto align-items-center my-4 py-4 border-top">
-  <p class="text-body-secondary text-decoration-none lh-1 small">
-    Powered by
-    <a href="https://getbootstrap.com/" class="text-body-secondary text-decoration-none">
-      <i class="bi-bootstrap"></i>
-    </a>,
-    <a href="https://github.com/marekpsenka/marekpsenka.github.io" class="text-body-secondary text-decoration-none">
-      <i class="bi-github"></i>
-    </a>
-    and <a href="https://getzola.org" class="text-body-secondary text-decoration-none">Zola</a>.
-    {{ now() | date(format="%Y") }}
-  </p>
-</footer>
+  <footer class="mx-auto align-items-center my-4 py-4 border-top">
+    <p class="text-body-secondary text-decoration-none lh-1 small">
+      Powered by
+      <a href="https://getbootstrap.com/" class="text-body-secondary text-decoration-none">
+        <i class="bi-bootstrap"></i>
+      </a>,
+      <a href="https://github.com/marekpsenka/marekpsenka.github.io" class="text-body-secondary text-decoration-none">
+        <i class="bi-github"></i>
+      </a>
+      and <a href="https://getzola.org" class="text-body-secondary text-decoration-none">Zola</a>.
+      {{ now() | date(format="%Y") }}
+    </p>
+  </footer>
+</article>
 {% endblock content %}

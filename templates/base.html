@@ -32,9 +32,7 @@
   <body>
     <div class="container p-4">
       {% include "header.html" %}
-      <section class="section">
-        {% block content %} {% endblock %}
-      </section>
+      {% block content %} {% endblock %}
     </div>
     <script type="text/javascript" src="{{ get_url(path='script/bootstrap.min.js') }}"></script>
     <script async data-id="101478869" src="//static.getclicky.com/js"></script>

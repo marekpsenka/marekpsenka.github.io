@@ -2,21 +2,23 @@
 
 {% block content %}
 
-<p>
-  Hello, my name is Marek and this is my homepage. I am a father, a citizen and
-  a technical lead in software development with background in physics and mathematics.
-</p>
+<main>
+  <p>
+    Hello, my name is Marek and this is my homepage. I am a father, a citizen and
+    a technical lead in software development with background in physics and mathematics.
+  </p>
 
-<p class="text-body-secondary text-decoration-none lh-1 small">
-  Powered by
-  <a href="https://getbootstrap.com/" class="text-body-secondary text-decoration-none">
-    <i class="bi-bootstrap"></i>
-  </a>,
-  <a href="https://github.com/marekpsenka/marekpsenka.github.io" class="text-body-secondary text-decoration-none">
-    <i class="bi-github"></i>
-  </a>
-  and <a href="https://getzola.org" class="text-body-secondary text-decoration-none">Zola</a>.
-  {{ now() | date(format="%Y") }}
-</p>
+  <p class="text-body-secondary text-decoration-none lh-1 small">
+    Powered by
+    <a href="https://getbootstrap.com/" class="text-body-secondary text-decoration-none">
+      <i class="bi-bootstrap"></i>
+    </a>,
+    <a href="https://github.com/marekpsenka/marekpsenka.github.io" class="text-body-secondary text-decoration-none">
+      <i class="bi-github"></i>
+    </a>
+    and <a href="https://getzola.org" class="text-body-secondary text-decoration-none">Zola</a>.
+    {{ now() | date(format="%Y") }}
+  </p>
+</main>
 
 {% endblock content %}

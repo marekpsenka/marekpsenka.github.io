@@ -11,47 +11,49 @@
 
 {% set grains = load_data(path="content/grains.json") %}
 
-<h1 class="title">
-  {{ page.title }}
-</h1>
+<section>
+  <h1 class="title">
+    {{ page.title }}
+  </h1>
 
-<div class="container-fluid">
-  <div class="grid">
-    <div class="grid-sizer col-xs-12 col-sm-6 col-md-4"></div>
-    {% for grain in grains %}
-    <div class="grid-item col-xs-12 col-sm-6 col-md-4 p-2">
-      <div class="card text-center">
-        <div class="card-body">
-          <a href="{{ grain.link | safe }}">
-            <h5 class="card-title">{{ grain.title }}</h5>
-          </a>
-          <div class="card-text">
-            {{ grain.desc | safe }}
-          </div>
-          <img
-            class="card-img-bottom p-4"
-            src="{{ get_url(path=grain.thumb) }}"
-            alt="Card image cap"
-          >
+  <main class="container-fluid">
+    <div class="grid">
+      <div class="grid-sizer col-xs-12 col-sm-6 col-md-4"></div>
+      {% for grain in grains %}
+      <div class="grid-item col-xs-12 col-sm-6 col-md-4 p-2">
+        <div class="card text-center">
+          <section class="card-body">
+            <a href="{{ grain.link | safe }}">
+              <h5 class="card-title">{{ grain.title }}</h5>
+            </a>
+            <div class="card-text">
+              {{ grain.desc | safe }}
+            </div>
+            <img
+              class="card-img-bottom p-4"
+              src="{{ get_url(path=grain.thumb) }}"
+              alt="Card image cap"
+            >
+          </section>
         </div>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
-</div>
+  </main>
 
-<script>
-  var elem = document.querySelector('.grid');
-  var iso = new Isotope( elem, {
-      // options
-      itemSelector: '.grid-item',
-      masonry: {
-        columnWidth: '.grid-sizer',
-      }
-    }); 
+  <script>
+    var elem = document.querySelector('.grid');
+    var iso = new Isotope( elem, {
+        // options
+        itemSelector: '.grid-item',
+        masonry: {
+          columnWidth: '.grid-sizer',
+        }
+      }); 
 
-  imagesLoaded(elem, function() {
-    iso.layout();
-  });
-</script>
+    imagesLoaded(elem, function() {
+      iso.layout();
+    });
+  </script>
+</section>
 {% endblock content %}

@@ -24,7 +24,11 @@ html {
   scrollbar-gutter: stable;
 }
 
-section {
+article {
+  a {
+    text-decoration-line: none;
+  }
+
   img {
     max-width: 100%;
     height: auto;
