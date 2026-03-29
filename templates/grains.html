@@ -9,7 +9,7 @@
 <script type="text/javascript" src="{{ get_url(path='script/isotope.pkgd.min.js') }}"></script>
 <script type="text/javascript" src="{{ get_url(path='script/imagesloaded.pkgd.min.js') }}"></script>
 
-{% set grains = load_data(path="content/grains.json") %}
+{% set grains = load_data(path="content/grains.json") | reverse %}
 
 <section>
   <h1 class="title">

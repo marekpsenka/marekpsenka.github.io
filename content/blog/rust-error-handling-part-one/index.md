@@ -1,7 +1,7 @@
 +++
 title = "Error Handling in Rust, Part 1: Basic Idea"
 date = 2025-02-23
-description = "First part of a series focused on error handling in Rust. In this installment I go over the basics and mainly discuss the philoshopy closing off with comparison to exceptions in C#."
+description = "First part of a series focused on error handling in Rust. In this installment I go over the basics and mainly discuss the philosophy closing off with comparison to exceptions in C#."
 +++
 
 The approach Rust takes to error handling was one of the features that drew me in when I first
@@ -12,7 +12,7 @@ by Rust were not completely new, but improved on techniques that had been around
 some languages.
 
 This post is the first part of a series focused on error handling in Rust. In this installment
-I go over the basics and mainly discuss the philoshopy closing off with comparison to exceptions
+I go over the basics and mainly discuss the philosophy closing off with comparison to exceptions
 in C#.
 
 ## Simple Example
@@ -161,7 +161,7 @@ The specified path, file name, or both exceed the system-defined maximum length.
 (...)
 ```
 
-Rust on the other hand is explicit. I can see the possiblity of failure immediately
+Rust on the other hand is explicit. I can see the possibility of failure immediately
 from how the function is declared in the code:
 
 ```rust
@@ -192,7 +192,7 @@ safety rails, it must be a willing action of the programmer.
 ## Summary
 
 - Using `Result<T, E>` as the return type of a fallible function is standard practice in Rust.
-- `Result` is like a box that may or may not contain the desired resultt.
+- `Result` is like a box that may or may not contain the desired result.
 - The idea of making space for error information in the return value of a function is not new.
 - Rust has greatly improved on the idea.
 - We compared errors to C# exceptions which:
