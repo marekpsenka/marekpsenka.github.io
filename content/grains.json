@@ -21,12 +21,18 @@
     "title": "Edhouse Partner Day 2025",
     "thumb": "img/partner_day_2025.png",
     "desc": "Přednesl jsem keynote na Edhouse Partner Day 2025 na téma \"Měnící se svět vývoje software\".",
-    "link": "https://www.edhouse.eu/cz/edhouse-partner-day/"
+    "link": "https://www.edhouse.eu/cz/novinky/detail/edhouse-partner-day-2025-ohlednuti-za-prvnim-rocnikem/"
   },
   {
     "title": "MeetUpdate: Výhody Rustu, o kterých se tolik nemluví",
     "thumb": "img/meetupdate_2026.jpg",
     "desc": "Povídal jsem v Ostravě o výhodách Rustu, o kterých se tolik nemluví 🦀.",
     "link": "https://youtu.be/GWrGg1xRWz0"
+  },
+  {
+    "title": "Agentic Development vs. Vibe-coding",
+    "thumb": "img/miniature-workmen.png",
+    "desc": "I wrote up my thoughts on the difference between agentic development and vibe-coding for Edhouse blog",
+    "link": "https://www.edhouse.eu/en/blog/detail/agentic-development-vs-vibe-coding/"
   }
 ]
