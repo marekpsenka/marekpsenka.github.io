@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "bootstrap": "^5.3.3",
+    "bootstrap": "^5.3.8",
     "imagesloaded": "^5.0.0",
     "isotope-layout": "^3.0.6"
   },
@@ -11,9 +11,9 @@
     "copy_js_deps": "npm run copy_bs_js && npm run copy_iso_js && npm run copy_img_ld"
   },
   "devDependencies": {
-    "@html-eslint/eslint-plugin": "^0.35.0",
-    "@html-eslint/parser": "^0.35.0",
-    "eslint": "^9.21.0"
+    "@html-eslint/eslint-plugin": "^0.64.0",
+    "@html-eslint/parser": "^0.64.0",
+    "eslint": "^10.8.0"
   },
   "type": "module"
 }

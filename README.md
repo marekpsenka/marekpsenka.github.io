@@ -1,15 +1,15 @@
 # blog
 
 ```shell
-choco install nvm
+choco install fnm
 ```
 
 ```shell
-nvm install latest
+fnm install latest
 ```
 
 ```shell
-nvm use %latest%
+fnm use latest
 ```
 
 ```shell
