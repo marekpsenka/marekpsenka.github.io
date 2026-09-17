@@ -1,6 +1,3 @@
-{% import "macros.html" as macros %}
-
-<!-- eslint-disable @html-eslint/require-title -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,7 +9,7 @@
 
     {% block head %}
     <meta property="og:type" content="website">
-    {{ macros::title_and_description(title="", description="personal page") }}
+    {{ <title_and_description title="" description="personal page" /> }}
     {% endblock %}
 
     <link
@@ -31,7 +28,7 @@
 
   <body>
     <div class="container p-4">
-      {% include "header.html" %}
+{% include "header.html" %}
       {% block content %} {% endblock %}
     </div>
     <script type="text/javascript" src="{{ get_url(path='script/bootstrap.min.js') }}"></script>
