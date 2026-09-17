@@ -1,42 +1,44 @@
 {% extends "base.html" %}
 
 {% block head %}
-<meta property="og:type" content="article">
-{% set iso_8601_date = page.date | date(format="%Y-%m-%dT%H:%M:%S%:z") %}
-<meta property="article:published_time" content="{{ iso_8601_date }}">
-{{ <title_and_description title={page.title} description={page.description | default(value="")} /> }}
+    <meta property="og:type" content="article">
+    {% set iso_8601_date = page.date | date(format="%Y-%m-%dT%H:%M:%S%:z") %}
+    <meta property="article:published_time" content="{{ iso_8601_date }}">
+    {{ <title_and_description title={page.title} description={page.description | default(value="")} /> }}
 {% endblock %}
 
 {% block content %}
-<article>
-  <header>
-    <h1>
-      {{ page.title }}
-    </h1>
-    <p class="lead">
-      {% if page.extra.subtitle %}
-      {{ page.extra.subtitle }}, 
-      {% endif %}
-      <time>{{ page.date }}</time>
-    </p>
-  </header>
-
-  <main>
-    {{ page.content | safe }}
-  </main>
-
-  <footer class="mx-auto align-items-center my-4 py-4 border-top">
-    <p class="text-body-secondary text-decoration-none lh-1 small">
-      Powered by
-      <a href="https://getbootstrap.com/" class="text-body-secondary text-decoration-none">
-        <i class="bi-bootstrap"></i>
-      </a>,
-      <a href="https://github.com/marekpsenka/marekpsenka.github.io" class="text-body-secondary text-decoration-none">
-        <i class="bi-github"></i>
-      </a>
-      and <a href="https://getzola.org" class="text-body-secondary text-decoration-none">Zola</a>.
-      {{ now() | date(format="%Y") }}
-    </p>
-  </footer>
-</article>
+      <article>
+        <header>
+          <h1>
+            {{ page.title }}
+          </h1>
+          <p class="lead">
+            {% if page.extra.subtitle %}
+            {{ page.extra.subtitle }}, 
+            {% endif %}
+            <time>{{ page.date }}</time>
+          </p>
+        </header>
+      
+        <main>
+          <!-- eslint-disable -->
+          {{ page.content | safe }}
+          <!-- eslint-enable -->
+        </main>
+      
+        <footer class="mx-auto align-items-center my-4 py-4 border-top">
+          <p class="text-body-secondary text-decoration-none lh-1 small">
+            Powered by
+            <a href="https://getbootstrap.com/" class="text-body-secondary text-decoration-none">
+              <i class="bi-bootstrap"></i>
+            </a>,
+            <a href="https://github.com/marekpsenka/marekpsenka.github.io" class="text-body-secondary text-decoration-none">
+              <i class="bi-github"></i>
+            </a>
+            and <a href="https://getzola.org" class="text-body-secondary text-decoration-none">Zola</a>.
+            {{ now() | date(format="%Y") }}
+          </p>
+        </footer>
+      </article>
 {% endblock content %}
