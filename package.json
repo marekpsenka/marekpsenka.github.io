@@ -9,13 +9,16 @@
     "copy_iso_js": "xcopy .\\node_modules\\isotope-layout\\dist\\isotope.pkgd.min.js .\\static\\script",
     "copy_img_ld": "xcopy .\\node_modules\\imagesloaded\\imagesloaded.pkgd.min.js .\\static\\script",
     "copy_js_deps": "npm run copy_bs_js && npm run copy_iso_js && npm run copy_img_ld",
+    "optimize_photos": "node scripts/optimize-photos.mjs",
+    "check_photos": "node scripts/check-photos.mjs",
     "lint": "eslint .",
-    "test": "npm run lint"
+    "test": "npm run check_photos && npm run lint"
   },
   "devDependencies": {
     "@html-eslint/eslint-plugin": "^0.64.0",
     "@html-eslint/parser": "^0.64.0",
-    "eslint": "^10.8.0"
+    "eslint": "^10.8.0",
+    "sharp": "^0.35.4"
   },
   "type": "module"
 }

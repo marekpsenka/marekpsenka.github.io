@@ -17,7 +17,7 @@ Settled during design review. Recorded here so the reasoning survives.
 | 6 | Nav label `čundry`; all prose in English | Matches the site's existing voice; Czech terms kept and used as-is |
 | 7 | Country flags are committed SVGs under `static/img/flags/` | Flags never change; six 2 KB files beat a 1 MB npm dependency and a CI step |
 | 8 | Downscale script is Node + `sharp` | Cross-platform, arrives with `npm install`. Caveat: no HEIC support in prebuilt binaries |
-| 9 | A size guard in `npm test` fails on any committed image over 400 KB | Catches the one failure mode that is expensive to undo — a fat photo in git history |
+| 9 | A size guard in `npm test` fails on any committed image over 700 KB | Catches the one failure mode that is expensive to undo — a fat photo in git history. Threshold raised from 400 KB after real photos measured 65–579 KB at 1600 px q82 |
 | 10 | EXIF is stripped (sharp's default) | Photos must not ship GPS coordinates of campsites and homes |
 | 11 | ASCII on disk and in URLs: `content/cundry/`, entries as `2026-kosovo/` | Diacritics live in the rendered title and nav label only |
 | 12 | Front matter carries country, country code, mountains, city, thumbnail | `date` is the single source of truth for the year |
@@ -43,7 +43,7 @@ every new template:
 
 ## Phase 1 — Scaffolding
 
-- [ ] Create `content/cundry/_index.md`:
+- [x] Create `content/cundry/_index.md`:
       ```toml
       +++
       title = "Čundry"
@@ -52,18 +52,20 @@ every new template:
       page_template = "cundry-entry.html"
       +++
       ```
-- [ ] Add `templates/cundry.html` and `templates/cundry-entry.html` as minimal stubs extending
+- [x] Add `templates/cundry.html` and `templates/cundry-entry.html` as minimal stubs extending
       `base.html`, so the section builds before any styling exists.
-- [ ] Add the nav link to [templates/header.html](templates/header.html#L15-L18), following the
+- [x] Add the nav link to [templates/header.html](templates/header.html#L15-L18), following the
       existing wheat-glyph-plus-anchor pattern:
       `<a href="{{ get_url(path='@/cundry/_index.md') }}">čundry</a>`.
-- [ ] `zola build` and confirm `/cundry/` renders and `npm run lint` passes.
+- [x] `zola build` and confirm `/cundry/` renders and `npm run lint` passes.
+
+`cundry-entry.html` is written but not yet exercised — the section has no pages until Phase 5.
 
 ## Phase 2 — Photo pipeline
 
-- [ ] Add `sharp` as a **devDependency** — CI runs `npm install --omit=dev`, so it never reaches the
+- [x] Add `sharp` as a **devDependency** — CI runs `npm install --omit=dev`, so it never reaches the
       build.
-- [ ] Create `scripts/optimize-photos.mjs` (max 1600 px, WebP q82, EXIF orientation baked in then
+- [x] Create `scripts/optimize-photos.mjs` (max 1600 px, WebP q82, EXIF orientation baked in then
       metadata dropped):
       ```js
       import sharp from "sharp";
@@ -89,43 +91,71 @@ every new template:
         console.log(`${file} -> ${out}  ${width}x${height}  ${Math.round(size / 1024)} KB`);
       }
       ```
-- [ ] Create `scripts/check-photos.mjs` — walks `content/`, fails on any image over 400 KB. Must use
-      **node builtins only** so it can run in CI without devDependencies.
-- [ ] Wire up [package.json](package.json#L6):
+- [x] Create `scripts/check-photos.mjs` — walks `content/`, fails on any image over 700 KB. Must use
+      **node builtins only** so it can run in CI without devDependencies. Uses a hand-rolled
+      recursive walk rather than `readdir({ recursive: true })`, which needs Node 20.1+ — the CI
+      runner installs node via `apt`, so the version is not guaranteed.
+- [x] Wire up [package.json](package.json#L6):
       `"optimize_photos": "node scripts/optimize-photos.mjs"`,
       `"check_photos": "node scripts/check-photos.mjs"`,
       `"test": "npm run check_photos && npm run lint"`.
-- [ ] **Open item:** there is no CI workflow that runs `npm test` — [deploy.yml](.github/workflows/deploy.yml)
-      only builds and deploys. Either add a `npm run check_photos` step to the deploy job before
-      `zola build`, or accept that the guard is local-only. Recommend the former; it is two lines.
+- [x] **Resolved:** a `Check photo sizes` step now runs `npm run check_photos` in
+      [deploy.yml](.github/workflows/deploy.yml#L45-L46), before `zola build`.
+
+Headroom note: the largest existing image is `content/blog/landscape-of-deployment/timeline.png` at
+395 KB, well inside the 700 KB guard. Real čundr photos at 1600 px q82 measured 65–579 KB, which is
+why the threshold was raised from the original 400 KB guess.
 
 ## Phase 3 — Timeline (index page)
 
-- [ ] SCSS in [sass/custom.scss](sass/custom.scss): vertical spine as a `::before` pseudo-element on
+- [x] SCSS in [sass/custom.scss](sass/custom.scss): vertical spine as a `::before` pseudo-element on
       the timeline container, dots as pseudo-elements on each node, nodes alternating via
       `:nth-child(odd|even)` with Bootstrap's grid, collapsing to a single left-aligned column below
       the `md` breakpoint. Colours from the existing `$wheat` / `$dark-wheat` palette.
-- [ ] `templates/cundry.html` iterates `section.pages` (newest first, matching the sketch) and emits
-      per node: year from `page.date`, flag `<img>`, country, mountains, and a 400×400 `op="fill"`
+- [x] `templates/cundry.html` iterates `section.pages` (newest first, matching the sketch) and emits
+      per node: year from `page.date`, flag `<img>`, country, mountains, and a 200×200 `op="fill"`
       thumbnail from `page.extra.thumb`, the whole node linking to `page.permalink`.
-- [ ] Verify the rendered output passes the 2-space indent rule.
+- [x] Verify the rendered output passes the 2-space indent rule.
+- [x] Pulled forward from Phase 5: the six flag SVGs, since the timeline cannot be reviewed without
+      them. Copied out of `flag-icons` 7.5.0 (MIT) installed with `--no-save`, then uninstalled;
+      attribution added to [README.md](README.md#L48).
+
+Node layout is a horizontal card: 6 rem square thumbnail on the left, flag + year + country as the
+heading, mountains beneath. Odd nodes sit right of the spine so the newest entry is on the right,
+matching the sketch. Verified at 390 px and 1536 px, in light and dark mode, against two throwaway
+entries that were then deleted.
 
 ## Phase 4 — Entry page
 
-- [ ] `templates/cundry-entry.html` extends `base.html`; head block reuses the
+- [x] `templates/cundry-entry.html` extends `base.html`; head block reuses the
       `title_and_description` component exactly as [templates/blog-page.html](templates/blog-page.html#L7)
       does. No `og:image` override.
-- [ ] Header: title, flag, mountains + city, year.
-- [ ] Body: `{{ page.content | safe }}` wrapped in `<!-- eslint-disable -->` / `<!-- eslint-enable -->`.
-- [ ] Gallery: discover photos by filtering `page.assets` for `/img/.*\.webp$` (Zola's `matching`
-      test), derive each basename, and feed `resize_image(path=page.colocated_path ~ "img/" ~ name,
-      width=400, height=400, op="fill", format="webp")` for the grid. The modal shows the committed
-      1600 px file, served from `page.permalink ~ "img/" ~ name`.
-- [ ] Alt text: default to `Photo N from <country> <year>`, overridden when the filename appears in
-      `page.extra.captions`. **Verify during implementation** that Tera's `get` filter degrades
-      gracefully on a missing key; if it errors, switch `captions` to an array of
-      `{ file, text }` tables and match inside the loop.
-- [ ] One modal element per page; a ~10-line handler swaps `src` and caption on thumbnail click.
+- [x] Header: title, flag, mountains + city, year.
+- [x] Body: `{{ page.content | safe }}` wrapped in `<!-- eslint-disable -->` / `<!-- eslint-enable -->`.
+- [x] Gallery: discover photos from `page.assets`, derive each basename, and feed
+      `resize_image(path=page.colocated_path ~ "img/" ~ name, width=320, height=320, op="fill",
+      format="webp")` for the grid. The modal shows the committed 1600 px file, served from
+      `page.permalink ~ "img/" ~ name`.
+- [x] Alt text: defaults to `Photo N from <country> <year>`, overridden when the filename appears in
+      `page.extra.captions`. Verified: `captions[name] | default(value=...)` works both with no
+      `captions` table at all and with a partially populated one, so the array-of-tables fallback is
+      not needed.
+- [x] One modal element per page; a small handler swaps `src` and `alt` on thumbnail click.
+- [x] Neither existing SCSS rule caused trouble: `.flag-chip` carries `filter: none` to cancel the
+      wheat tint that `header img` would otherwise apply to the flag.
+
+Three things discovered while building this:
+
+1. **`page.assets` uses backslashes on Windows** (`/cundry\2026-kosovo\img\01.webp`) and forward
+   slashes on Linux CI. The basename is extracted with
+   `split(pat="/") | last | split(pat="\\") | last`, which is correct on both.
+2. **Zola 0.23's Tera rejects `is matching("...")`** with "Found string but expected identifier".
+   The extension filter is done with `name | split(pat=".") | last == "webp"` instead.
+3. **`@html-eslint/attrs-newline`** requires one attribute per line once an element carries more
+   than a couple, which shaped the modal markup.
+
+The lightbox uses a transparent `.modal-content` and caps the photo at `85vh` so portrait shots fit
+the screen. Verified at 390 px and 1100 px, light and dark, with both landscape and portrait photos.
 
 ## Phase 5 — First real entry
 
@@ -143,10 +173,15 @@ every new template:
       thumb = "img/01.webp"
       +++
       ```
-- [ ] Run the photo inbox through `npm run optimize_photos` into
-      `content/cundry/2026-kosovo/img/`, 16 photos.
-- [ ] Commit `static/img/flags/xk.svg` with the MIT attribution comment.
-- [ ] Write the paragraph.
+- [x] Run the photo inbox through `npm run optimize_photos` into
+      `content/cundry/2026-kosovo/img/`, 16 photos. 4.7 MB total, named `01`–`16` chronologically.
+- [x] Commit `static/img/flags/xk.svg` with the MIT attribution comment. All six flags are in place
+      (`ba`, `cz`, `ge`, `me`, `sk`, `xk`). Note `me.svg` is 56 KB — Montenegro's coat of arms is
+      detailed; the rest are 0.2–8 KB.
+- [ ] Write the paragraph. Also replace the `description` placeholder in the front matter.
+- [ ] Once the real body is in, re-check the `Unused eslint-disable directive` warning on the entry
+      page. It fires because a single-line body happens to land at valid indentation; a
+      multi-paragraph body should make the directive necessary. If it persists, drop the directive.
 
 ## Phase 6 — Polish
 
