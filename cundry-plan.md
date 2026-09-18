@@ -110,7 +110,7 @@ why the threshold was raised from the original 400 KB guess.
 
 - [x] SCSS in [sass/custom.scss](sass/custom.scss): vertical spine as a `::before` pseudo-element on
       the timeline container, dots as pseudo-elements on each node, nodes alternating via
-      `:nth-child(odd|even)` with Bootstrap's grid, collapsing to a single left-aligned column below
+      `:nth-child(odd|even)` with Bootstrap's grid, collapsing to a single right-aligned column below
       the `md` breakpoint. Colours from the existing `$wheat` / `$dark-wheat` palette.
 - [x] `templates/cundry.html` iterates `section.pages` (newest first, matching the sketch) and emits
       per node: year from `page.date`, flag `<img>`, country, mountains, and a 200×200 `op="fill"`
@@ -121,7 +121,7 @@ why the threshold was raised from the original 400 KB guess.
       attribution added to [README.md](README.md#L48).
 
 Node layout is a horizontal card: 6 rem square thumbnail on the left, flag + year + country as the
-heading, mountains beneath. Odd nodes sit right of the spine so the newest entry is on the right,
+heading, mountains beneath. Odd nodes sit left of the spine so the newest entry is on the left,
 matching the sketch. Verified at 390 px and 1536 px, in light and dark mode, against two throwaway
 entries that were then deleted.
 

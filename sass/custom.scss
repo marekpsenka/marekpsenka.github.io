@@ -229,22 +229,22 @@ $timeline-gap: 1.5rem;
   .timeline-node {
     width: 50%;
 
-    // newest entry sits on the right, alternating downwards
+    // newest entry sits on the left, alternating downwards
     &:nth-child(odd) {
-      margin-left: 50%;
-      padding-left: $timeline-gap;
-
-      &::before {
-        left: 0;
-      }
-    }
-
-    &:nth-child(even) {
       padding-left: 0;
       padding-right: $timeline-gap;
 
       &::before {
         left: 100%;
+      }
+    }
+
+    &:nth-child(even) {
+      margin-left: 50%;
+      padding-left: $timeline-gap;
+
+      &::before {
+        left: 0;
       }
     }
   }

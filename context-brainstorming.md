@@ -27,18 +27,18 @@ am not sure about the technical feasibility. I need to evaluate that with you.
 On the index of the chronicle, I would like to have a timeline scrolling down into the past like this
 
 ```text
-                                                                    
-                              |                                     
-                              |---- 2026, Kosovo %Flag%, Šar planina
-                              |                                     
- 2025, Czechia, Jeseníky  ----|                                     
-                              |                                     
-                              |---- ...                             
-                              |                                     
-                    ...   ----|                                     
-                              |                                     
-                              |                                     
-                                                                    
+                                                                     
+                               |                                     
+ 2026, Kosovo, Šar planina ----|                                     
+                               |                                     
+                               |---- 2025, Czechia, Jeseníky         
+                               |                                     
+                       ... ----|                                     
+                               |                                     
+                               |---- ...                             
+                               |                                     
+                               |                                     
+                                                                     
 ```
 
 It would be nice to have one photo as a thumbnail for each entry, but again not sure of feasibility, need to
