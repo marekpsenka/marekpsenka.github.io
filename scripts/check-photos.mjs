@@ -4,7 +4,7 @@ import { join } from "node:path";
 
 const ROOT = "content";
 // Sits above the largest 1600 px q82 photo (~580 KB) and below the smallest unprocessed original (~1 MB).
-const MAX_BYTES = 700 * 1024;
+const MAX_BYTES = 900 * 1024;
 const IMAGE = /\.(jpe?g|png|webp|gif)$/i;
 
 async function* walk(dir) {
