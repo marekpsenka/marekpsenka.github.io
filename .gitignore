@@ -1,5 +1,7 @@
 public/
 node_modules/
+photo-inbox/
+static/processed_images/
 static/script/bootstrap.min.js
 static/script/imagesloaded.pkgd.min.js
 static/script/isotope.pkgd.min.js

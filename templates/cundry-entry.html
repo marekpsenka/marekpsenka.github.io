@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block head %}
+    <meta property="og:type" content="article">
+    {{ <title_and_description title={page.title} description={page.description | default(value="")} /> }}
+{% endblock %}
+
+{% block content %}
+      {% set year = page.date | date(format="%Y") %}
+      {% set captions = page.extra.captions | default(value={}) %}
+      <article>
+        <header>
+          <h1>
+            {{ page.extra.mountains }}
+          </h1>
+          <p class="lead">
+            <img
+              class="flag-chip"
+              src="{{ get_url(path='img/flags/' ~ page.extra.country_code ~ '.svg') }}"
+              alt="Flag of {{ page.extra.country }}"
+            >
+            {{ page.extra.country }}, 
+            <time>{{ year }}</time>
+          </p>
+        </header>
+
+        <main>
+          {{ page.content | safe }}
+
+          <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 g-2">
+            {% for asset in page.assets %}
+            {% set name = asset | split(pat="/") | last | split(pat="\\") | last %}
+            {% if name | split(pat=".") | last == "webp" %}
+            {% set thumb = resize_image(path=page.colocated_path ~ "img/" ~ name, width=320, height=320, op="fill", format="webp") %}
+            {% set caption = captions[name] | default(value="Photo " ~ loop.index ~ " from " ~ page.extra.country ~ " " ~ year) %}
+            <div class="col">
+              <button
+                type="button"
+                class="gallery-item"
+                data-bs-toggle="modal"
+                data-bs-target="#photo-modal"
+                data-photo-src="{{ page.permalink | safe }}img/{{ name }}"
+                data-photo-alt="{{ caption }}"
+              >
+                <img
+                  src="{{ thumb.url }}"
+                  width="{{ thumb.width }}"
+                  height="{{ thumb.height }}"
+                  alt="{{ caption }}"
+                  loading="lazy"
+                >
+              </button>
+            </div>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </main>
+      </article>
+
+      <div
+        class="modal fade photo-modal"
+        id="photo-modal"
+        tabindex="-1"
+        aria-label="Photo"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+          <div class="modal-content">
+            <div class="modal-body p-0">
+              <!-- 1x1 placeholder so the hidden modal does not fetch a photo before one is chosen -->
+              <img
+                id="photo-modal-img"
+                src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                alt=""
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        document.getElementById("photo-modal").addEventListener("show.bs.modal", (event) => {
+          const image = document.getElementById("photo-modal-img");
+          image.src = event.relatedTarget.dataset.photoSrc;
+          image.alt = event.relatedTarget.dataset.photoAlt;
+        });
+      </script>
+{% endblock content %}

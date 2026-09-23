@@ -33,3 +33,19 @@ This check is mandatory and must pass before committing/pushing changes:
 ```shell
 npm run lint
 ```
+
+## Photos
+
+Photos under `content/` must be downscaled before they are committed:
+
+```shell
+npm run optimize_photos <inbox-folder> content/cundry/<entry>/img
+```
+
+This writes 1600 px WebP files with EXIF metadata stripped. `npm run check_photos` fails on any
+image over 700 KB and runs both in `npm test` and in CI.
+
+## Third-party assets
+
+The country flags in `static/img/flags/` are taken from
+[flag-icons](https://github.com/lipis/flag-icons) 7.5.0 (MIT).

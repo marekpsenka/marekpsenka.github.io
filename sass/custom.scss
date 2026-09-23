@@ -115,3 +115,171 @@ header {
     font-size: $h4-font-size;
   }
 }
+
+$timeline-spine: 0.5rem;
+$timeline-dot: 0.75rem;
+$timeline-gap: 1.5rem;
+
+.timeline {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: $timeline-spine;
+    width: 2px;
+    margin-left: -1px;
+    @include color-mode(light) {
+      background-color: $link-color;
+    }
+    @include color-mode(dark) {
+      background-color: $link-color-dark;
+    }
+  }
+}
+
+.timeline-node {
+  position: relative;
+  padding-left: $timeline-spine + $timeline-gap;
+  margin-bottom: $timeline-gap;
+
+  // the dot sitting on the spine
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: $timeline-spine;
+    width: $timeline-dot;
+    height: $timeline-dot;
+    margin-top: -$timeline-dot * 0.5;
+    margin-left: -$timeline-dot * 0.5;
+    border-radius: 50%;
+    @include color-mode(light) {
+      background-color: $link-color;
+    }
+    @include color-mode(dark) {
+      background-color: $link-color-dark;
+    }
+  }
+}
+
+.timeline-card {
+  color: inherit;
+  overflow: hidden;
+  text-decoration-line: none;
+
+  &:hover {
+    border-color: $primary;
+
+    .card-title {
+      text-decoration-line: underline;
+    }
+  }
+}
+
+.timeline-thumb {
+  flex-shrink: 0;
+  width: 6rem;
+  height: 6rem;
+  object-fit: cover;
+}
+
+.flag-chip {
+  display: inline-block;
+  width: auto;
+  height: 0.8em;
+  border: 1px solid $border-color-translucent;
+  filter: none; // overrides the wheat tint that `header img` applies
+}
+
+.gallery-item {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+
+  img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: $border-radius;
+  }
+
+  &:hover img,
+  &:focus-visible img {
+    outline: 2px solid $primary;
+  }
+}
+
+.photo-modal {
+  .modal-content {
+    background-color: transparent;
+    border: 0;
+  }
+}
+
+.modal-body img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 85vh;
+  margin: auto;
+}
+
+@include media-breakpoint-up(md) {
+  .timeline::before {
+    left: 50%;
+  }
+
+  .timeline-node {
+    width: 50%;
+
+    // newest entry sits on the left, alternating downwards
+    &:nth-child(odd) {
+      padding-left: 0;
+      padding-right: $timeline-gap;
+
+      &::before {
+        left: 100%;
+      }
+    }
+
+    &:nth-child(even) {
+      margin-left: 50%;
+      padding-left: $timeline-gap;
+
+      &::before {
+        left: 0;
+      }
+    }
+  }
+}
+
+.cb-logo {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 250px;
+  aspect-ratio: 1.1;
+  background-color: $link-color;
+  left: $timeline-spine;
+  
+  /* Use the PNG mask */
+  mask-image: url('img/cb_logo.png');
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  
+  /* Fallbacks for WebKit browsers */
+  -webkit-mask-image: url('img/cb_logo.png');
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+
+  @include color-mode(dark) {
+    background-color: $link-color-dark;
+  }
+}

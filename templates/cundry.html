@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ <title_and_description title="čundry" description="chronicle of adventures with the Čundr boys" /> }}
+{% endblock %}
+
+{% block content %}
+      <section>
+        <h1 class="title">
+          {{ section.title }}
+        </h1>
+        <main>
+          <div class="cb-logo d-block mx-auto"></div>
+          <ol class="timeline list-unstyled">
+            {% for page in section.pages %}
+            {% set thumb = resize_image(path=page.colocated_path ~ page.extra.thumb, width=200, height=200, op="fill", format="webp") %}
+            <li class="timeline-node">
+              <a class="timeline-card card flex-row align-items-center" href="{{ page.permalink | safe }}">
+                <img
+                  class="timeline-thumb"
+                  src="{{ thumb.url }}"
+                  width="{{ thumb.width }}"
+                  height="{{ thumb.height }}"
+                  alt="Photo from {{ page.extra.country }} {{ page.date | date(format='%Y') }}"
+                >
+                <div class="card-body">
+                  <h2 class="card-title h5">
+                    <img
+                      class="flag-chip"
+                      src="{{ get_url(path='img/flags/' ~ page.extra.country_code ~ '.svg') }}"
+                      alt="Flag of {{ page.extra.country }}"
+                    >
+                    {{ page.extra.mountains }}
+                  </h2>
+                  <p class="card-text text-body-secondary mb-0">{{ page.date | date(format="%Y") }}, {{ page.extra.country }}</p>
+                </div>
+              </a>
+            </li>
+            {% endfor %}
+          </ol>
+        </main>
+      </section>
+{% endblock content %}
