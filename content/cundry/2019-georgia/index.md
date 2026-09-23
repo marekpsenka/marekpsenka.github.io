@@ -1,7 +1,7 @@
 +++
 title = "Georgia"
 date = 2019-08-16
-description = "TODO: one or two sentences about the 2026 čundr in Šar planina, used as the page description and link preview."
+description = ""
 [extra]
 country = "Georgia"
 country_code = "ge"
@@ -12,5 +12,3 @@ thumb = "img/dsc_1826.webp"
 # [extra.captions]
 # "03.webp" = "The tarn below the ridge"
 +++
-
-TODO: write the paragraph here.

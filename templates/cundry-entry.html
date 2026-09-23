@@ -11,7 +11,7 @@
       <article>
         <header>
           <h1>
-            {{ page.title }}
+            {{ page.extra.mountains }}
           </h1>
           <p class="lead">
             <img
@@ -19,7 +19,7 @@
               src="{{ get_url(path='img/flags/' ~ page.extra.country_code ~ '.svg') }}"
               alt="Flag of {{ page.extra.country }}"
             >
-            {{ page.extra.mountains }} and {{ page.extra.city }},
+            {{ page.extra.country }}, 
             <time>{{ year }}</time>
           </p>
         </header>

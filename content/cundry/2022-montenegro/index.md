@@ -1,7 +1,7 @@
 +++
 title = "Montenegro"
 date = 2022-06-18
-description = "TODO: one or two sentences about the 2026 čundr in Šar planina, used as the page description and link preview."
+description = ""
 [extra]
 country = "Montenegro"
 country_code = "me"
@@ -12,5 +12,3 @@ thumb = "img/img_20220621_125457.webp"
 # [extra.captions]
 # "03.webp" = "The tarn below the ridge"
 +++
-
-TODO: write the paragraph here.

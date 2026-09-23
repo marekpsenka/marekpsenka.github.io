@@ -30,9 +30,9 @@
                       src="{{ get_url(path='img/flags/' ~ page.extra.country_code ~ '.svg') }}"
                       alt="Flag of {{ page.extra.country }}"
                     >
-                    {{ page.date | date(format="%Y") }}, {{ page.extra.country }}
+                    {{ page.extra.mountains }}
                   </h2>
-                  <p class="card-text text-body-secondary mb-0">{{ page.extra.mountains }}</p>
+                  <p class="card-text text-body-secondary mb-0">{{ page.date | date(format="%Y") }}, {{ page.extra.country }}</p>
                 </div>
               </a>
             </li>
